@@ -380,6 +380,8 @@ async function renderLocationTime(timeZone) {
   renderTime("location", time);
 }
 
+
 // TODO: let user select timezone input
-setInterval(() => renderLocationTime("America/New_York"), 1000);
-renderLocationTime("America/New_York");
+let selectedTimezone = "America/New_York";
+setInterval(() => renderLocationTime(selectedTimezone), 1000);
+renderLocationTime(selectedTimezone);
