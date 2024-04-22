@@ -1,5 +1,3 @@
-url = `http://worldtimeapi.org/api/timezone`;
-
 const timeZones = [
     "Africa/Abidjan",
     "Africa/Algiers",
@@ -351,37 +349,77 @@ const timeZones = [
     "Pacific/Tarawa",
     "Pacific/Tongatapu",
     "WET",
-  ];
+];
+
+function populateTimezoneDropdown() {
+    const dropdown = document.getElementById("timezone-select");
+
+    timeZones.forEach((timezone) => {
+        const option = document.createElement("option");
+        option.value = timezone;
+        option.text = timezone.replaceAll("_"," ").replaceAll("/"," ");
+        dropdown.appendChild(option);
+    });
+}
+
+populateTimezoneDropdown();
+
+function handleTimezoneChange() {
+    const selectedTimezone = document.getElementById("timezone-select").value;
+    setInterval(() => renderLocationTime(selectedTimezone), 1000);
+    renderLocationTime(selectedTimezone);
+}
+
+url = `http://worldtimeapi.org/api/timezone`;
 
 function renderTime(idPrefix, time = new Date()) {
-  const months= ['Jan',"Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-  const dow = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
-  const currentDateTime = time.toLocaleTimeString();
-  var supertext = "th"
-  if (time.getDate()%10 == 1 && time.getDate() != 11){
-    supertext = 'st'
-  }else if(time.getDate()%10 == 2 && time.getDate() != 12){
-    supertext = 'nd'
-  }else if(time.getDate()%10 == 3 && time.getDate() != 13){
-    supertext = 'rd'
-  }
-  document.getElementById(`${idPrefix}-time`).innerHTML = currentDateTime;
-  document.getElementById(`${idPrefix}-day`).innerHTML = `${time.getDate()}<sup>${supertext}<sup>`;
-  document.getElementById(`${idPrefix}-month`).innerHTML = months[time.getMonth()];
-  document.getElementById(`${idPrefix}-dayOfWeek`).innerHTML = dow[time.getDay()];
-  document.getElementById(`${idPrefix}-year`).innerHTML = time.getFullYear();
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+    const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const currentDateTime = time.toLocaleTimeString();
+    var supertext = "th";
+    if (time.getDate() % 10 == 1 && time.getDate() != 11) {
+        supertext = "st";
+    } else if (time.getDate() % 10 == 2 && time.getDate() != 12) {
+        supertext = "nd";
+    } else if (time.getDate() % 10 == 3 && time.getDate() != 13) {
+        supertext = "rd";
+    }
+
+    document.getElementById(`${idPrefix}-time`).innerHTML = currentDateTime;
+    document.getElementById(
+        `${idPrefix}-day`
+    ).innerHTML = `${time.getDate()}<sup>${supertext}<sup>`;
+    document.getElementById(`${idPrefix}-month`).innerHTML =
+        months[time.getMonth()];
+    document.getElementById(`${idPrefix}-dayOfWeek`).innerHTML =
+        dow[time.getDay()];
+    document.getElementById(`${idPrefix}-year`).innerHTML = time.getFullYear();
 }
 
 setInterval(() => renderTime("l"), 1000);
 renderTime("l");
 
 async function renderLocationTime(timeZone) {
-  const time = new Date(new Date().toLocaleString('en-US', { timeZone: timeZone }));
-  renderTime("location", time);
+    const time = new Date(
+        new Date().toLocaleString("en-US", { timeZone: timeZone })
+    );
+    renderTime("location", time);
 }
 
-
 // TODO: let user select timezone input
-let selectedTimezone = "America/New_York";
+let selectedTimezone = "America/New_York"
 setInterval(() => renderLocationTime(selectedTimezone), 1000);
-renderLocationTime(selectedTimezone);
+

@@ -8,24 +8,33 @@
     <script src="index.js" defer></script>
 </head>
 <body>
-    <div class="search-bar">
-        <input placeholder="Location">
+    <div class="dropdown-menu">
+        <select id="timezone-select" onchange="handleTimezoneChange()">
+            <option value="">America New York</option>
+        </select>
     </div>
-    <div class="local">
+    <div class="timeContainer">
         <div>Local Time</div>
         <span id="l-day">day</span>
         <span id="l-month">month</span>
         <span id="l-year">year</span>
-        <span id="l-dayOfWeek">dow</span>
-        <div id="l-time">00:00:00</div>
+        <div>
+            <span id="l-dayOfWeek">dow</span>
+            <span id="l-time">00:00:00</span>
+        </div>
     </div>
-    <div class="location">
+    <div class="timeContainer">
         <div>Location Time</div>
         <span id="location-day">day</span>
         <span id="location-month">month</span>
         <span id="location-year">year</span>
-        <span id="location-dayOfWeek">dow</span>
-        <div id="location-time">00:00:00</div>
+        <div>
+            <span id="location-dayOfWeek">dow</span>
+            <span id="location-time">00:00:00</span>
+        </div>
+        
     </div>
+
+    <script src="index.js" defer></script>
 </body>
 </html>
