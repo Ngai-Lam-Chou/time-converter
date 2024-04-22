@@ -353,26 +353,33 @@ const timeZones = [
     "WET",
   ];
 
-function getCurrentTime() {
+function renderTime(idPrefix, time = new Date()) {
   const months= ['Jan',"Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
   const dow = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
-  const now = new Date();
-  const currentDateTime = now.toLocaleTimeString();
+  const currentDateTime = time.toLocaleTimeString();
   var supertext = "th"
-  if (now.getDate()%10 == 1 && now.getDate() != 11){
+  if (time.getDate()%10 == 1 && time.getDate() != 11){
     supertext = 'st'
-  }else if(now.getDate()%10 == 2 && now.getDate() != 12){
+  }else if(time.getDate()%10 == 2 && time.getDate() != 12){
     supertext = 'nd'
-  }else if(now.getDate()%10 == 3 && now.getDate() != 13){
+  }else if(time.getDate()%10 == 3 && time.getDate() != 13){
     supertext = 'rd'
   }
-  document.getElementById("l-localTime").innerHTML = currentDateTime;
-  document.getElementById("l-day").innerHTML = `${now.getDate()}<sup>${supertext}<sup>`;
-  document.getElementById("l-month").innerHTML = months[now.getMonth()];
-  document.getElementById("l-dayOfWeek").innerHTML = dow[now.getDay()];
-  document.getElementById("l-year").innerHTML = now.getFullYear();
+  document.getElementById(`${idPrefix}-time`).innerHTML = currentDateTime;
+  document.getElementById(`${idPrefix}-day`).innerHTML = `${time.getDate()}<sup>${supertext}<sup>`;
+  document.getElementById(`${idPrefix}-month`).innerHTML = months[time.getMonth()];
+  document.getElementById(`${idPrefix}-dayOfWeek`).innerHTML = dow[time.getDay()];
+  document.getElementById(`${idPrefix}-year`).innerHTML = time.getFullYear();
 }
 
-setInterval(getCurrentTime, 1000);
+setInterval(() => renderTime("l"), 1000);
+renderTime("l");
 
-getCurrentTime();
+async function renderLocationTime(timeZone) {
+  const time = new Date(new Date().toLocaleString('en-US', { timeZone: timeZone }));
+  renderTime("location", time);
+}
+
+// TODO: let user select timezone input
+setInterval(() => renderLocationTime("America/New_York"), 1000);
+renderLocationTime("America/New_York");
