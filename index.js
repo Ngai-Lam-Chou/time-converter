@@ -365,8 +365,7 @@ function populateTimezoneDropdown() {
 populateTimezoneDropdown();
 
 function handleTimezoneChange() {
-    const selectedTimezone = document.getElementById("timezone-select").value;
-    setInterval(() => renderLocationTime(selectedTimezone), 1000);
+    selectedTimezone = document.getElementById("timezone-select").value;
     renderLocationTime(selectedTimezone);
 }
 
@@ -419,7 +418,6 @@ async function renderLocationTime(timeZone) {
     renderTime("location", time);
 }
 
-// TODO: let user select timezone input
 let selectedTimezone = "America/New_York"
 setInterval(() => renderLocationTime(selectedTimezone), 1000);
-
+renderLocationTime(selectedTimezone);
