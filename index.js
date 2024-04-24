@@ -362,15 +362,15 @@ function populateTimezoneDropdown() {
     });
 }
 
+// states:
+let selectedTimezone = "America/New_York"
+
 populateTimezoneDropdown();
 
 function handleTimezoneChange() {
-    const selectedTimezone = document.getElementById("timezone-select").value;
-    setInterval(() => renderLocationTime(selectedTimezone), 1000);
+    selectedTimezone = document.getElementById("timezone-select").value;
     renderLocationTime(selectedTimezone);
 }
-
-url = `http://worldtimeapi.org/api/timezone`;
 
 function renderTime(idPrefix, time = new Date()) {
     const months = [
@@ -412,14 +412,12 @@ function renderTime(idPrefix, time = new Date()) {
 setInterval(() => renderTime("l"), 1000);
 renderTime("l");
 
-async function renderLocationTime(timeZone) {
+function renderLocationTime(timeZone) {
     const time = new Date(
         new Date().toLocaleString("en-US", { timeZone: timeZone })
     );
     renderTime("location", time);
 }
 
-// TODO: let user select timezone input
-let selectedTimezone = "America/New_York"
 setInterval(() => renderLocationTime(selectedTimezone), 1000);
-
+renderLocationTime(selectedTimezone);
