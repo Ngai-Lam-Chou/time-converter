@@ -4,19 +4,19 @@ body{
     background-color: #272727;
     font-family: "Lato",sans-serif;
     text-align: center;
-    color: white
+    color: white;
+    font-size: 80px;
 }
 
-.search-bar input{
-    font-size: 100px;
-    font-weight: bold;
+.dropdown-menu select,button{
+    font-size: 50px;
 }
 
-.local{
-    font-size: 100px;
-    margin-bottom: 20px;
+.timeContainer{
+    background: linear-gradient(to right, darkorange,purple, darkblue);
+    margin: 80px;
+    box-shadow: 50px 50px 50px black;
+    border-radius: 20px;
+    padding: 20px;
 }
 
-.location{
-    font-size: 100px;
-}
